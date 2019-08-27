@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Heading from "./Heading";
 import Reset from "./Reset";
 
 function App() {
-  const [count, updateCount] = useState(40);
+  const [count, updateCount] = useState(1);
+  const [dogImages, updateDogImages] = useState([]);
 
   useEffect(() => {
     document.title = `Count: ${count}`;
+  }, [count]);
+
+  useEffect(() => {
+    axios
+      .get(`https://dog.ceo/api/breeds/image/random/${count}`)
+      .then(res => updateDogImages(res.data.message))
+      .catch(err => console.log(err));
   }, [count]);
 
   return (
@@ -23,6 +32,13 @@ function App() {
           universe, and everything.
         </p>
       )}
+
+      <div>
+        {dogImages.map((dogImage, index) => (
+          <img key={index} src={dogImage} alt="Random Dog" />
+        ))}
+        {/* <img src={dogImage} alt="Radomn Dog" /> */}
+      </div>
     </div>
   );
 }
