@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Heading from "./Heading";
 import Reset from "./Reset";
 
 function App() {
   const [count, updateCount] = useState(40);
+
+  useEffect(() => {
+    document.title = `Count: ${count}`;
+  }, [count]);
 
   return (
     <div>
