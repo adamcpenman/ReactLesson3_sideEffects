@@ -3,6 +3,7 @@ import axios from "axios";
 import Heading from "./Heading";
 import Reset from "./Reset";
 import { getDogImages } from "./dog-api";
+import Mouse from "./Mouse";
 
 function App() {
   const [count, updateCount] = useState(1);
@@ -35,6 +36,8 @@ function App() {
 
   return (
     <div>
+      {count === 1 && <Mouse />}
+
       <Heading text={`Count: ${count}`} />
 
       <button onClick={() => updateCount(count + 1)}>Increment</button>
