@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Heading from "./Heading";
 import Reset from "./Reset";
+import { getDogImages } from "./dog-api";
 
 function App() {
   const [count, updateCount] = useState(1);
@@ -11,15 +12,19 @@ function App() {
     document.title = `Count: ${count}`;
   }, [count]);
 
+  // useEffect(() => {
+  //   if (count < 0) {
+  //     updateDogImages(["http://placekitten.com/200/300"]);
+  //   } else {
+  //     axios
+  //       .get(`https://dog.ceo/api/breeds/image/random/${count}`)
+  //       .then(res => updateDogImages(res.data.message))
+  //       .catch(err => console.log(err));
+  //   }
+  // }, [count]);
+
   useEffect(() => {
-    if (count < 0) {
-      updateDogImages(["http://placekitten.com/200/300"]);
-    } else {
-      axios
-        .get(`https://dog.ceo/api/breeds/image/random/${count}`)
-        .then(res => updateDogImages(res.data.message))
-        .catch(err => console.log(err));
-    }
+    getDogImages(count, updateDogImages);
   }, [count]);
 
   // useEffect (() => {
