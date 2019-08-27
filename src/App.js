@@ -12,11 +12,21 @@ function App() {
   }, [count]);
 
   useEffect(() => {
-    axios
-      .get(`https://dog.ceo/api/breeds/image/random/${count}`)
-      .then(res => updateDogImages(res.data.message))
-      .catch(err => console.log(err));
+    if (count < 0) {
+      updateDogImages(["http://placekitten.com/200/300"]);
+    } else {
+      axios
+        .get(`https://dog.ceo/api/breeds/image/random/${count}`)
+        .then(res => updateDogImages(res.data.message))
+        .catch(err => console.log(err));
+    }
   }, [count]);
+
+  // useEffect (() => {
+  //     setTimeout(() => {
+  //       updateCount(5);
+  //     }, 5000)
+  // }, [])
 
   return (
     <div>
